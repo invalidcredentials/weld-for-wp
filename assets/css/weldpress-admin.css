@@ -1,0 +1,865 @@
+/**
+ * Weld for WP — Admin styles.
+ */
+
+/* ── Layout ─────────────────────────────────────────── */
+
+.weldpress-admin-content {
+    max-width: 800px;
+}
+
+.weldpress-admin-content .widefat td code {
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.weldpress-admin-content pre {
+    background: #1a1a2e;
+    color: #e0e0e0;
+    padding: 12px 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 13px;
+}
+
+/* ── Wallet Card ────────────────────────────────────── */
+
+.wfwp-wallet-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-left: 4px solid #2271b1;
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 720px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+
+.wfwp-wallet-card h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── Network Badge ──────────────────────────────────── */
+
+.wfwp-network-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+    color: #fff;
+    vertical-align: middle;
+}
+
+.wfwp-network-badge.wfwp-preprod {
+    background: #b26500;
+}
+
+.wfwp-network-badge.wfwp-mainnet {
+    background: #0033ad;
+}
+
+/* ── Balance ────────────────────────────────────────── */
+
+.wfwp-balance-wrap {
+    margin: 16px 0;
+    padding: 16px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.wfwp-balance-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.wfwp-ada-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d2327;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.wfwp-ada-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #646970;
+}
+
+.wfwp-refresh-btn {
+    margin-left: 4px !important;
+    vertical-align: baseline !important;
+}
+
+.wfwp-refresh-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: text-bottom;
+}
+
+.wfwp-loading {
+    display: flex;
+    align-items: center;
+    color: #646970;
+    font-size: 14px;
+}
+
+.wfwp-balance-error {
+    color: #d63638;
+    font-size: 14px;
+}
+
+.wfwp-balance-error .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    margin-right: 4px;
+}
+
+.wfwp-balance-error a {
+    margin-left: 8px;
+}
+
+.wfwp-no-key {
+    color: #996800;
+    background: #fcf3d9;
+    padding: 10px 14px;
+    border-radius: 4px;
+    border-left: 4px solid #dba617;
+}
+
+.wfwp-no-key .dashicons {
+    color: #996800;
+}
+
+/* ── Wallet Details Table ───────────────────────────── */
+
+.wfwp-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+}
+
+.wfwp-details-table th {
+    text-align: left;
+    padding: 8px 12px 8px 0;
+    color: #646970;
+    font-weight: 500;
+    font-size: 13px;
+    white-space: nowrap;
+    width: 130px;
+    vertical-align: top;
+}
+
+.wfwp-details-table td {
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+.wfwp-details-table code {
+    word-break: break-all;
+    font-size: 12px;
+    background: #f0f0f1;
+    padding: 3px 6px;
+    border-radius: 3px;
+}
+
+/* ── Copy Button ────────────────────────────────────── */
+
+.wfwp-copy-btn {
+    cursor: pointer;
+    transition: color .15s;
+}
+
+.wfwp-copy-btn:hover {
+    color: #2271b1;
+}
+
+.wfwp-copied {
+    color: #00a32a !important;
+}
+
+/* ── Actions Bar ────────────────────────────────────── */
+
+.wfwp-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.wfwp-actions-right {
+    margin-left: auto;
+}
+
+.wfwp-delete-link {
+    color: #b32d2e;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.wfwp-delete-link:hover {
+    color: #a00;
+    text-decoration: underline;
+}
+
+/* ── Send ADA Form ──────────────────────────────────── */
+
+.wfwp-send-form {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .3s ease;
+}
+
+.wfwp-send-form.wfwp-open {
+    max-height: 500px;
+}
+
+.wfwp-send-form h4 {
+    margin: 0 0 12px;
+    font-size: 15px;
+}
+
+.wfwp-send-fields {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 8px 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.wfwp-send-fields label {
+    font-weight: 500;
+    font-size: 13px;
+    color: #1d2327;
+}
+
+.wfwp-send-fields input[type="text"],
+.wfwp-send-fields input[type="number"] {
+    width: 100%;
+    max-width: 100%;
+}
+
+.wfwp-send-fields input[type="number"] {
+    max-width: 180px;
+}
+
+.wfwp-send-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wfwp-send-status {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.wfwp-status-success {
+    background: #f0faf0;
+    color: #1e4620;
+    border-left: 4px solid #00a32a;
+}
+
+.wfwp-status-error {
+    background: #fcf0f1;
+    color: #8a1e23;
+    border-left: 4px solid #d63638;
+}
+
+.wfwp-status-info {
+    background: #f0f6fc;
+    color: #1d4377;
+    border-left: 4px solid #2271b1;
+}
+
+/* ── Funding Reminder ───────────────────────────────── */
+
+.wfwp-funding-reminder {
+    background: #fcf3d9;
+    border-left: 4px solid #dba617;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #6e4e00;
+}
+
+.wfwp-funding-reminder .dashicons {
+    color: #996800;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    margin-right: 4px;
+}
+
+/* ── Token / NFT Grid ───────────────────────────────── */
+
+.wfwp-assets-container {
+    margin-top: 16px;
+}
+
+.wfwp-assets-header {
+    font-size: 13px;
+    color: #646970;
+    margin-bottom: 8px;
+}
+
+.wfwp-asset-count {
+    font-weight: 500;
+}
+
+.wfwp-toggle-assets {
+    margin-left: 8px;
+    font-size: 13px;
+}
+
+/* Slide animation */
+.wfwp-slide {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .35s ease;
+}
+
+.wfwp-slide.wfwp-open {
+    max-height: 3000px;
+}
+
+.wfwp-assets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 4px 0;
+}
+
+.wfwp-asset-tile {
+    background: #f6f7f7;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.wfwp-asset-tile:hover {
+    border-color: #2271b1;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+.wfwp-asset-tile.wfwp-active {
+    border-color: #2271b1;
+    background: #f0f6fc;
+}
+
+.wfwp-asset-thumb-wrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 8px;
+}
+
+.wfwp-asset-thumb {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.wfwp-asset-thumb-fallback {
+    width: 64px;
+    height: 64px;
+    background: #dcdcde;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #8c8f94;
+}
+
+.wfwp-qty-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #2271b1;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 8px;
+    line-height: 1.4;
+}
+
+.wfwp-asset-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1d2327;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wfwp-asset-policy {
+    font-size: 10px;
+    color: #8c8f94;
+    font-family: monospace;
+}
+
+/* ── Asset Detail Card ──────────────────────────────── */
+
+.wfwp-asset-detail {
+    margin-top: 12px;
+}
+
+.wfwp-detail-inner {
+    background: #f6f7f7;
+    border: 1px solid #c3c4c7;
+    border-radius: 6px;
+    padding: 16px 20px;
+}
+
+.wfwp-detail-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.wfwp-detail-close {
+    position: absolute;
+    top: -4px;
+    right: 0;
+    font-size: 22px;
+    line-height: 1;
+    color: #8c8f94;
+    text-decoration: none;
+}
+
+.wfwp-detail-close:hover {
+    color: #d63638;
+}
+
+.wfwp-detail-img-wrap {
+    flex-shrink: 0;
+}
+
+.wfwp-detail-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #dcdcde;
+}
+
+.wfwp-detail-title h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+/* ── Metadata Table ─────────────────────────────────── */
+
+.wfwp-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.wfwp-meta-table tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.wfwp-meta-table tr:last-child {
+    border-bottom: none;
+}
+
+.wfwp-meta-key {
+    padding: 6px 12px 6px 0;
+    color: #646970;
+    font-weight: 500;
+    white-space: nowrap;
+    vertical-align: top;
+    width: 140px;
+}
+
+.wfwp-meta-val {
+    padding: 6px 0;
+    word-break: break-all;
+}
+
+.wfwp-meta-val code {
+    font-size: 11px;
+    background: #e8e8ea;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.wfwp-meta-long {
+    max-height: 80px;
+    overflow-y: auto;
+    padding: 6px 8px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* ── Seed Phrase ────────────────────────────────────── */
+
+.wfwp-mnemonic-card {
+    background: #fcf0f1;
+    border: 1px solid #d63638;
+    border-left: 4px solid #d63638;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    max-width: 720px;
+    animation: wfwp-pulse 2s ease-in-out 3;
+}
+
+@keyframes wfwp-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(214,54,56,.2); }
+    50% { box-shadow: 0 0 0 8px rgba(214,54,56,0); }
+}
+
+.wfwp-mnemonic-card h3 {
+    color: #d63638;
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.wfwp-mnemonic-words {
+    background: #1d2327;
+    color: #50c878;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 15px;
+    line-height: 2;
+    word-spacing: 8px;
+    user-select: all;
+    margin: 12px 0;
+}
+
+/* ── Generate Card ──────────────────────────────────── */
+
+.wfwp-generate-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-left: 4px solid #dba617;
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 520px;
+}
+
+.wfwp-generate-card h3 {
+    margin: 0 0 8px;
+}
+
+/* ── Archived Wallets ───────────────────────────────── */
+
+.wfwp-archived-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    max-width: 720px;
+    margin-top: 20px;
+}
+
+.wfwp-archived-toggle {
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    user-select: none;
+}
+
+.wfwp-archived-toggle .dashicons {
+    transition: transform .2s;
+}
+
+.wfwp-archived-list.wfwp-open + .wfwp-archived-toggle .dashicons,
+.wfwp-archived-toggle.wfwp-rotated .dashicons {
+    transform: rotate(180deg);
+}
+
+.wfwp-archived-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-top: 12px;
+}
+
+.wfwp-archived-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fafafa;
+}
+
+.wfwp-archived-item:hover {
+    background: #f0f6fc;
+}
+
+.wfwp-archived-info strong {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wfwp-archived-info code {
+    font-size: 11px;
+    color: #646970;
+}
+
+.wfwp-archived-info small {
+    color: #8c8f94;
+    font-size: 12px;
+}
+
+.wfwp-archived-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ── Docs Tab ───────────────────────────────────────── */
+
+.wfwp-docs {
+    max-width: 860px;
+}
+
+.wfwp-docs h2 {
+    font-size: 20px;
+    margin: 28px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.wfwp-docs h2:first-of-type {
+    margin-top: 8px;
+}
+
+.wfwp-docs h3 {
+    font-size: 15px;
+    margin: 20px 0 8px;
+}
+
+.wfwp-docs hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 28px 0;
+}
+
+.wfwp-docs p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #1d2327;
+}
+
+.wfwp-docs ul {
+    margin: 8px 0 8px 20px;
+}
+
+.wfwp-docs ul li {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+.wfwp-docs code {
+    background: #f0f0f1;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.wfwp-docs-meta {
+    background: #f0f6fc;
+    border-left: 4px solid #2271b1;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 13px !important;
+    line-height: 1.8 !important;
+    color: #1d4377 !important;
+}
+
+.wfwp-docs-meta a {
+    font-weight: 500;
+}
+
+.wfwp-docs-paths {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0 24px;
+}
+
+.wfwp-docs-path {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.wfwp-docs-path h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #1d2327;
+}
+
+.wfwp-docs-path p {
+    margin: 6px 0;
+}
+
+.wfwp-docs-path ol {
+    margin: 8px 0 8px 20px;
+    padding: 0;
+}
+
+.wfwp-docs-path ol li {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+@media (max-width: 782px) {
+    .wfwp-docs-paths {
+        grid-template-columns: 1fr;
+    }
+}
+
+.wfwp-docs-diagram {
+    margin: 12px 0;
+}
+
+.wfwp-docs-diagram pre {
+    background: #1d2327;
+    color: #c3d1d9;
+    padding: 16px 20px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.wfwp-docs-table {
+    max-width: 100%;
+    margin: 12px 0;
+}
+
+.wfwp-docs-table th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.wfwp-docs-table td {
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.wfwp-docs-table code {
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.wfwp-code {
+    background: #1d2327;
+    color: #e0e0e0;
+    padding: 16px 20px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 12px 0;
+    tab-size: 4;
+}
+
+.wfwp-code-comment {
+    color: #6a9955;
+}
+
+.wfwp-docs-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 12px !important;
+    color: #646970 !important;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+
+@media (max-width: 782px) {
+    .wfwp-wallet-card,
+    .wfwp-generate-card,
+    .wfwp-archived-card,
+    .wfwp-mnemonic-card {
+        max-width: 100%;
+    }
+
+    .wfwp-ada-value {
+        font-size: 24px;
+    }
+
+    .wfwp-details-table th {
+        display: block;
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    .wfwp-details-table td {
+        display: block;
+        padding-top: 2px;
+        padding-bottom: 12px;
+    }
+
+    .wfwp-send-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .wfwp-assets-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+
+    .wfwp-archived-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .wfwp-detail-header {
+        flex-direction: column;
+    }
+}
