@@ -1,14 +1,14 @@
 <?php
 /**
- * CardanoTransactionSignerPHP.php
+ * WeldPress_CardanoTransactionSignerPHP.php
  *
  * Pure-PHP Cardano transaction signer with CBOR codec.
- * Adds support for signing with extended keys (kL||kR) using Ed25519Compat::sign_extended.
+ * Adds support for signing with extended keys (kL||kR) using WeldPress_Ed25519Compat::sign_extended.
  */
 
-require_once __DIR__ . '/Ed25519Compat.php';
+require_once __DIR__ . '/WeldPress_Ed25519Compat.php';
 
-class CardanoTransactionSignerPHP
+class WeldPress_CardanoTransactionSignerPHP
 {
     // --- Public API ----------------------------------------------------------
 
@@ -53,18 +53,18 @@ class CardanoTransactionSignerPHP
                 $debug_log[] = "Using extended key (128 chars) - CIP-1852 mode";
                 // Extended key: kL||kR
                 // CRITICAL: Cardano uses NO-CLAMP Ed25519 signing!
-                // We MUST use Ed25519Compat for both public key derivation AND signing
+                // We MUST use WeldPress_Ed25519Compat for both public key derivation AND signing
                 $kL = hex2bin(substr($skey_hex, 0, 64));
                 $kR = hex2bin(substr($skey_hex, 64, 64));
                 if ($kL === false || $kR === false) return ['success'=>false,'error'=>'Invalid extended key hex','debug'=>$debug_log];
 
-                $debug_log[] = "Using Ed25519Compat::sign_extended (no-clamp signing)...";
+                $debug_log[] = "Using WeldPress_Ed25519Compat::sign_extended (no-clamp signing)...";
                 // Derive public key WITHOUT clamping (must match wallet generation!)
-                $pub = Ed25519Compat::ge_scalarmult_base_noclamp($kL);
+                $pub = WeldPress_Ed25519Compat::ge_scalarmult_base_noclamp($kL);
                 $debug_log[] = "✓ Public key (no-clamp): " . bin2hex($pub);
 
                 // Sign using extended key signing (no-clamp)
-                $sig = Ed25519Compat::sign_extended($body_hash, $kL, $kR);
+                $sig = WeldPress_Ed25519Compat::sign_extended($body_hash, $kL, $kR);
                 $debug_log[] = "✓ Signature created: " . strlen($sig) . " bytes";
 
                 // Calculate key hash to help verify we're using the right key
@@ -237,7 +237,7 @@ class CardanoTransactionSignerPHP
             case 'boolean':
                 return $value ? "\xF5" : "\xF4";
             default:
-                throw new \RuntimeException('Unsupported CBOR type: ' . gettype($value));
+                throw new \RuntimeException('Unsupported CBOR type: ' . esc_html( gettype( $value ) ));
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * CardanoWalletPHP.php
+ * WeldPress_CardanoWalletPHP.php
  *
  * Pure-PHP Cardano wallet derivation for CIP-1852 using the Icarus root:
  *  - Mnemonic -> entropy (BIP39)
@@ -15,12 +15,12 @@
  *   - ext/bcmath (for pure-PHP scalar math fallback paths and safety)
  *
  * Uses:
- *   - Ed25519Compat.php (native->FFI->pure fallback) for scalarmult and extended signing
+ *   - WeldPress_Ed25519Compat.php (native->FFI->pure fallback) for scalarmult and extended signing
  */
 
-require_once __DIR__ . '/Ed25519Compat.php';
+require_once __DIR__ . '/WeldPress_Ed25519Compat.php';
 
-class CardanoWalletPHP
+class WeldPress_CardanoWalletPHP
 {
     // ---- Public API ---------------------------------------------------------
 
@@ -109,7 +109,7 @@ class CardanoWalletPHP
         $kL[31] = $kL[31] & "\x1F";
         $kL[31] = $kL[31] | "\x40";
 
-        $A = Ed25519Compat::ge_scalarmult_base_noclamp($kL);
+        $A = WeldPress_Ed25519Compat::ge_scalarmult_base_noclamp($kL);
 
         return [
             'kL'         => $kL,
@@ -144,7 +144,7 @@ class CardanoWalletPHP
             $dataC = "\x01" . $blob . $i_le;
         } else {
             // A_parent (32 bytes compressed)
-            $A = Ed25519Compat::ge_scalarmult_base_noclamp($kL);
+            $A = WeldPress_Ed25519Compat::ge_scalarmult_base_noclamp($kL);
             $dataZ = "\x02" . $A . $i_le;
             $dataC = "\x03" . $A . $i_le;
         }
@@ -156,8 +156,8 @@ class CardanoWalletPHP
         $ZR = substr($Z, 32, 32);
 
         // kL_child = kL_parent + 8*ZL (raw 32-byte add for CSL compatibility)
-        $t = Ed25519Compat::scalar_mul_small8($ZL);
-        $kL_child = Ed25519Compat::add_raw32($kL, $t);  // Raw add (mod 2^256), NOT mod L
+        $t = WeldPress_Ed25519Compat::scalar_mul_small8($ZL);
+        $kL_child = WeldPress_Ed25519Compat::add_raw32($kL, $t);  // Raw add (mod 2^256), NOT mod L
 
         // kR_child = kR_parent + ZR (mod 2^256)
         $kR_child = $kR; $carry = 0;
@@ -171,7 +171,7 @@ class CardanoWalletPHP
         $c_full  = hash_hmac('sha512', $dataC, $cP, true);
         $c_child = substr($c_full, 32, 32);
 
-        $A_child = Ed25519Compat::ge_scalarmult_base_noclamp($kL_child);
+        $A_child = WeldPress_Ed25519Compat::ge_scalarmult_base_noclamp($kL_child);
 
         return [
             'kL'         => $kL_child,
@@ -251,7 +251,7 @@ class CardanoWalletPHP
         $bits = '';
         foreach ($words as $w) {
             if (!isset($map[$w])) {
-                throw new \InvalidArgumentException("Word not in BIP39 list: {$w}");
+                throw new \InvalidArgumentException( 'Word not in BIP39 list: ' . esc_html( $w ) );
             }
             $idx = $map[$w];
             $bits .= str_pad(decbin($idx), 11, '0', STR_PAD_LEFT);
@@ -386,6 +386,6 @@ class CardanoWalletPHP
         if (!extension_loaded('bcmath')) {
             throw new \RuntimeException('ext/bcmath is required for pure-PHP scalar arithmetic');
         }
-        Ed25519Compat::init();
+        WeldPress_Ed25519Compat::init();
     }
 }

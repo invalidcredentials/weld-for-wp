@@ -1,4 +1,4 @@
-=== Weld for WP ===
+=== Weld Cardano ===
 Contributors: invalidcredentials
 Tags: cardano, blockchain, wallet, web3, cryptocurrency
 Requires at least: 5.8
@@ -12,7 +12,7 @@ Cardano wallet connectivity and transaction signing for WordPress. Connect brows
 
 == Description ==
 
-Weld for WP brings Cardano to WordPress without the typical dApp stack. No Next.js, no Webpack, no WASM blobs. Just a clean plugin.
+Weld Cardano brings Cardano to WordPress without the typical dApp stack. Inspired by the Weld wallet connector by Anvil. No Next.js, no Webpack, no WASM blobs. Just a clean plugin.
 
 **Frontend wallet architecture inspired by [Weld](https://github.com/Cardano-Forge/weld) v0.6.0 by [Anvil](https://ada-anvil.io).**
 **Built using the [Anvil API](https://ada-anvil.io). Not an official Anvil product.**
@@ -85,7 +85,7 @@ This plugin connects to the following third-party services when configured by th
 
 1. Upload the `weldpress` folder to `/wp-content/plugins/`
 2. Activate the plugin through the Plugins menu
-3. Go to **Weld for WP > Settings** and select your network (Preprod or Mainnet)
+3. Go to **Weld Cardano > Settings** and select your network (Preprod or Mainnet)
 4. Add your Anvil API key ([get one here](https://ada-anvil.io))
 5. Add your Blockfrost API key ([free tier here](https://blockfrost.io))
 6. Use `[weldpress_connect]` on any page to add a wallet connect button

@@ -1,6 +1,6 @@
 <?php
 /**
- * Ed25519Compat.php
+ * WeldPress_Ed25519Compat.php
  *
  * Compat layer to provide Ed25519 scalarmult/signing primitives on PHP:
  *  - Prefer native ext/sodium APIs if available (PHP 8.3+)
@@ -13,7 +13,7 @@
  *  - sign_extended($msg, $kL, $kR)  -> 64-byte signature (R||S)
  */
 
-final class Ed25519Compat
+final class WeldPress_Ed25519Compat
 {
     private static $ready = false;
     private static $hasNative = false;
@@ -167,8 +167,8 @@ final class Ed25519Compat
             if ($ok!==0) throw new \RuntimeException('FFI scalarmult_base failed');
             return \FFI::string($Q,32);
         }
-        require_once __DIR__ . '/Ed25519Pure.php';
-        return Ed25519Pure::ge_scalarmult_base_noclamp($k);
+        require_once __DIR__ . '/WeldPress_Ed25519Pure.php';
+        return WeldPress_Ed25519Pure::ge_scalarmult_base_noclamp($k);
     }
 
     public static function sign_extended(string $msg, string $kL, string $kR): string

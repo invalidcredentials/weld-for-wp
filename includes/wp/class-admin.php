@@ -21,7 +21,7 @@ class WeldPress_Admin {
             return;
         }
 
-        $content = '<h2>Weld for WP</h2>' .
+        $content = '<h2>Weld Cardano</h2>' .
             '<p>This plugin connects to external Cardano blockchain services when configured by the site administrator:</p>' .
             '<ul>' .
             '<li><strong>Ada Anvil API</strong> (<a href="https://ada-anvil.io">ada-anvil.io</a>) — used for building and submitting Cardano transactions. ' .
@@ -33,13 +33,13 @@ class WeldPress_Admin {
             '<p>If custodial wallets are enabled, wallet private keys are stored encrypted (AES-256-CBC) in the WordPress database. ' .
             'All plugin data is removed on uninstall.</p>';
 
-        wp_add_privacy_policy_content( 'Weld for WP', wp_kses_post( $content ) );
+        wp_add_privacy_policy_content( 'Weld Cardano', wp_kses_post( $content ) );
     }
 
     public static function add_menu() {
         add_menu_page(
-            'Weld for WP',
-            'Weld for WP',
+            'Weld Cardano',
+            'Weld Cardano',
             'manage_options',
             'weldpress',
             array( __CLASS__, 'render_page' ),
@@ -50,9 +50,10 @@ class WeldPress_Admin {
 
     public static function render_page() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized.', 'weldpress' ) );
+            wp_die( esc_html__( 'Unauthorized.', 'weld-cardano' ) );
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Tab is a display-only navigation parameter.
         $tab      = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'settings';
         $settings = new WeldPress_Settings();
 
@@ -63,19 +64,19 @@ class WeldPress_Admin {
      * Handle settings form submissions.
      */
     public static function handle_save() {
-        if ( ! isset( $_POST['weldpress_action'] ) ) {
+        if ( ! isset( $_POST['weldpress_action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified below.
             return;
         }
 
-        $action = sanitize_text_field( wp_unslash( $_POST['weldpress_action'] ) );
+        $action = sanitize_text_field( wp_unslash( $_POST['weldpress_action'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified below.
 
         // Verify nonce.
         if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'weldpress_' . $action ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'weldpress' ) );
+            wp_die( esc_html__( 'Security check failed.', 'weld-cardano' ) );
         }
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized.', 'weldpress' ) );
+            wp_die( esc_html__( 'Unauthorized.', 'weld-cardano' ) );
         }
 
         switch ( $action ) {
@@ -90,15 +91,16 @@ class WeldPress_Admin {
     }
 
     private static function save_settings() {
-        $network = isset( $_POST['weldpress_network'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_network'] ) ) : 'preprod';
+        // Nonce verified in handle_save() before this method is called.
+        $network = isset( $_POST['weldpress_network'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_network'] ) ) : 'preprod'; // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if ( ! in_array( $network, array( 'preprod', 'mainnet' ), true ) ) {
             $network = 'preprod';
         }
         update_option( 'weldpress_network', $network );
 
         // Encrypt and save API keys.
-        $key_preprod = isset( $_POST['weldpress_anvil_key_preprod'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_anvil_key_preprod'] ) ) : '';
-        $key_mainnet = isset( $_POST['weldpress_anvil_key_mainnet'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_anvil_key_mainnet'] ) ) : '';
+        $key_preprod = isset( $_POST['weldpress_anvil_key_preprod'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_anvil_key_preprod'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $key_mainnet = isset( $_POST['weldpress_anvil_key_mainnet'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_anvil_key_mainnet'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
         if ( ! empty( $key_preprod ) ) {
             update_option( 'weldpress_anvil_key_preprod', WeldPress_Settings::encrypt( $key_preprod ) );
@@ -108,8 +110,8 @@ class WeldPress_Admin {
         }
 
         // Blockfrost API keys.
-        $bf_preprod = isset( $_POST['weldpress_blockfrost_key_preprod'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_blockfrost_key_preprod'] ) ) : '';
-        $bf_mainnet = isset( $_POST['weldpress_blockfrost_key_mainnet'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_blockfrost_key_mainnet'] ) ) : '';
+        $bf_preprod = isset( $_POST['weldpress_blockfrost_key_preprod'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_blockfrost_key_preprod'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $bf_mainnet = isset( $_POST['weldpress_blockfrost_key_mainnet'] ) ? sanitize_text_field( wp_unslash( $_POST['weldpress_blockfrost_key_mainnet'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
         if ( ! empty( $bf_preprod ) ) {
             update_option( 'weldpress_blockfrost_key_preprod', WeldPress_Settings::encrypt( $bf_preprod ) );
@@ -118,7 +120,7 @@ class WeldPress_Admin {
             update_option( 'weldpress_blockfrost_key_mainnet', WeldPress_Settings::encrypt( $bf_mainnet ) );
         }
 
-        $custodial = isset( $_POST['weldpress_custodial_enabled'] ) ? '1' : '0';
+        $custodial = isset( $_POST['weldpress_custodial_enabled'] ) ? '1' : '0'; // phpcs:ignore WordPress.Security.NonceVerification.Missing
         update_option( 'weldpress_custodial_enabled', $custodial );
 
         set_transient( 'weldpress_admin_notice', 'Settings saved.', 30 );

@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Weld for WP
+ * Plugin Name: Weld Cardano
  * Plugin URI:  https://github.com/invalidcredentials/weld-for-wp
- * Description: Cardano wallet connectivity and transaction signing for WordPress — powered by Weld and PHP-Cardano. A pb project.
+ * Description: Cardano wallet connectivity and transaction signing for WordPress. Inspired by Weld by Anvil, powered by PHP-Cardano. A pb project.
  * Version:     0.3.0
  * Author:      pb
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: weldpress
+ * Text Domain: weld-cardano
  * Requires at least: 5.8
  * Tested up to: 6.9
  * Requires PHP: 7.4

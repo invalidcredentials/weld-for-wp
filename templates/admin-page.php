@@ -1,6 +1,6 @@
 <?php
 /**
- * Weld for WP admin page template.
+ * Weld Cardano admin page template.
  *
  * @var string              $tab      Current tab slug.
  * @var WeldPress_Settings  $settings Settings instance.
@@ -16,28 +16,28 @@ $tabs = array(
 );
 
 // Show admin notices.
-$notice      = get_transient( 'weldpress_admin_notice' );
-$notice_type = get_transient( 'weldpress_admin_notice_type' ) ?: 'success';
-if ( $notice ) {
+$weldpress_notice      = get_transient( 'weldpress_admin_notice' );
+$weldpress_notice_type = get_transient( 'weldpress_admin_notice_type' ) ?: 'success';
+if ( $weldpress_notice ) {
     delete_transient( 'weldpress_admin_notice' );
     delete_transient( 'weldpress_admin_notice_type' );
 }
 ?>
 <div class="wrap">
-    <h1><?php echo esc_html( 'Weld for WP' ); ?></h1>
+    <h1><?php echo esc_html( 'Weld Cardano' ); ?></h1>
     <p class="description">Cardano wallet connectivity &amp; transaction signing for WordPress. A pb project.</p>
 
-    <?php if ( $notice ) : ?>
-        <div class="notice notice-<?php echo esc_attr( $notice_type ); ?> is-dismissible">
-            <p><?php echo esc_html( $notice ); ?></p>
+    <?php if ( $weldpress_notice ) : ?>
+        <div class="notice notice-<?php echo esc_attr( $weldpress_notice_type ); ?> is-dismissible">
+            <p><?php echo esc_html( $weldpress_notice ); ?></p>
         </div>
     <?php endif; ?>
 
     <nav class="nav-tab-wrapper">
-        <?php foreach ( $tabs as $slug => $label ) : ?>
-            <a href="<?php echo esc_url( admin_url( "admin.php?page=weldpress&tab={$slug}" ) ); ?>"
-               class="nav-tab <?php echo $tab === $slug ? 'nav-tab-active' : ''; ?>">
-                <?php echo esc_html( $label ); ?>
+        <?php foreach ( $tabs as $weldpress_slug => $weldpress_label ) : ?>
+            <a href="<?php echo esc_url( admin_url( "admin.php?page=weldpress&tab={$weldpress_slug}" ) ); ?>"
+               class="nav-tab <?php echo $tab === $weldpress_slug ? 'nav-tab-active' : ''; ?>">
+                <?php echo esc_html( $weldpress_label ); ?>
             </a>
         <?php endforeach; ?>
     </nav>
@@ -115,35 +115,35 @@ if ( $notice ) {
             </div>
 
         <?php else :
-            $network          = $settings->get_network();
-            $active_wallet    = WeldPress_Wallet_Model::get_active_wallet( $network );
-            $archived_wallets = WeldPress_Wallet_Model::get_archived( $network );
-            $show_mnemonic    = get_transient( 'weldpress_wallet_mnemonic_' . get_current_user_id() );
-            if ( $show_mnemonic ) {
+            $weldpress_network          = $settings->get_network();
+            $weldpress_active_wallet    = WeldPress_Wallet_Model::get_active_wallet( $weldpress_network );
+            $weldpress_archived_wallets = WeldPress_Wallet_Model::get_archived( $weldpress_network );
+            $weldpress_show_mnemonic    = get_transient( 'weldpress_wallet_mnemonic_' . get_current_user_id() );
+            if ( $weldpress_show_mnemonic ) {
                 delete_transient( 'weldpress_wallet_mnemonic_' . get_current_user_id() );
             }
         ?>
 
             <?php // ── One-Time Seed Phrase Display ── ?>
-            <?php if ( $show_mnemonic ) : ?>
+            <?php if ( $weldpress_show_mnemonic ) : ?>
                 <div class="wfwp-mnemonic-card">
                     <h3>SAVE YOUR SEED PHRASE NOW</h3>
                     <p><strong>This will only be shown ONCE.</strong> Write it down and store it securely offline.</p>
-                    <div class="wfwp-mnemonic-words"><?php echo esc_html( $show_mnemonic ); ?></div>
+                    <div class="wfwp-mnemonic-words"><?php echo esc_html( $weldpress_show_mnemonic ); ?></div>
                     <p>
-                        <button type="button" class="button wfwp-copy-btn" data-copy="<?php echo esc_attr( $show_mnemonic ); ?>">Copy to Clipboard</button>
+                        <button type="button" class="button wfwp-copy-btn" data-copy="<?php echo esc_attr( $weldpress_show_mnemonic ); ?>">Copy to Clipboard</button>
                     </p>
                 </div>
             <?php endif; ?>
 
-            <?php if ( $active_wallet ) : ?>
+            <?php if ( $weldpress_active_wallet ) : ?>
 
                 <?php // ── Active Wallet Dashboard ── ?>
-                <div class="wfwp-wallet-card" data-wallet-id="<?php echo esc_attr( $active_wallet['id'] ); ?>">
+                <div class="wfwp-wallet-card" data-wallet-id="<?php echo esc_attr( $weldpress_active_wallet['id'] ); ?>">
                     <h3>
-                        <?php echo esc_html( $active_wallet['wallet_name'] ); ?>
-                        <span class="wfwp-network-badge wfwp-<?php echo esc_attr( $active_wallet['network'] ); ?>">
-                            <?php echo esc_html( $active_wallet['network'] ); ?>
+                        <?php echo esc_html( $weldpress_active_wallet['wallet_name'] ); ?>
+                        <span class="wfwp-network-badge wfwp-<?php echo esc_attr( $weldpress_active_wallet['network'] ); ?>">
+                            <?php echo esc_html( $weldpress_active_wallet['network'] ); ?>
                         </span>
                     </h3>
 
@@ -162,20 +162,20 @@ if ( $notice ) {
                         <tr>
                             <th>Payment Address</th>
                             <td>
-                                <code><?php echo esc_html( $active_wallet['payment_address'] ); ?></code>
-                                <button type="button" class="button button-small wfwp-copy-btn" data-copy="<?php echo esc_attr( $active_wallet['payment_address'] ); ?>">Copy</button>
+                                <code><?php echo esc_html( $weldpress_active_wallet['payment_address'] ); ?></code>
+                                <button type="button" class="button button-small wfwp-copy-btn" data-copy="<?php echo esc_attr( $weldpress_active_wallet['payment_address'] ); ?>">Copy</button>
                             </td>
                         </tr>
                         <tr>
                             <th>Key Hash</th>
                             <td>
-                                <code><?php echo esc_html( $active_wallet['payment_keyhash'] ); ?></code>
-                                <button type="button" class="button button-small wfwp-copy-btn" data-copy="<?php echo esc_attr( $active_wallet['payment_keyhash'] ); ?>">Copy</button>
+                                <code><?php echo esc_html( $weldpress_active_wallet['payment_keyhash'] ); ?></code>
+                                <button type="button" class="button button-small wfwp-copy-btn" data-copy="<?php echo esc_attr( $weldpress_active_wallet['payment_keyhash'] ); ?>">Copy</button>
                             </td>
                         </tr>
                         <tr>
                             <th>Created</th>
-                            <td><?php echo esc_html( $active_wallet['created_at'] ); ?></td>
+                            <td><?php echo esc_html( $weldpress_active_wallet['created_at'] ); ?></td>
                         </tr>
                     </table>
 
@@ -191,12 +191,12 @@ if ( $notice ) {
                     <?php // ── Action Buttons ── ?>
                     <div class="wfwp-actions">
                         <button type="button" class="button button-primary" id="wfwp-send-toggle">Send ADA</button>
-                        <button type="button" class="button" id="wfwp-archive-wallet" data-id="<?php echo esc_attr( $active_wallet['id'] ); ?>">Archive</button>
+                        <button type="button" class="button" id="wfwp-archive-wallet" data-id="<?php echo esc_attr( $weldpress_active_wallet['id'] ); ?>">Archive</button>
                         <span class="wfwp-actions-right">
                             <form method="post" style="display:inline;" onsubmit="return confirm('Permanently delete this wallet? This cannot be undone.');">
                                 <?php wp_nonce_field( 'weldpress_delete_wallet' ); ?>
                                 <input type="hidden" name="weldpress_wallet_action" value="delete">
-                                <input type="hidden" name="wallet_id" value="<?php echo esc_attr( $active_wallet['id'] ); ?>">
+                                <input type="hidden" name="wallet_id" value="<?php echo esc_attr( $weldpress_active_wallet['id'] ); ?>">
                                 <a href="#" class="wfwp-delete-link" onclick="this.closest('form').submit(); return false;">Delete Wallet</a>
                             </form>
                         </span>
@@ -207,7 +207,7 @@ if ( $notice ) {
                         <h4>Send ADA</h4>
                         <div class="wfwp-send-fields">
                             <label for="wfwp-send-recipient">Recipient</label>
-                            <input type="text" id="wfwp-send-recipient" class="regular-text" placeholder="<?php echo 'mainnet' === $network ? 'addr1...' : 'addr_test1...'; ?>">
+                            <input type="text" id="wfwp-send-recipient" class="regular-text" placeholder="<?php echo 'mainnet' === $weldpress_network ? 'addr1...' : 'addr_test1...'; ?>">
 
                             <label for="wfwp-send-amount">Amount</label>
                             <input type="number" id="wfwp-send-amount" step="0.1" min="1" placeholder="ADA">
@@ -224,15 +224,15 @@ if ( $notice ) {
 
                 <?php // ── Generate Wallet Form ── ?>
                 <div class="wfwp-generate-card">
-                    <h3>Create Wallet (<?php echo esc_html( $network ); ?>)</h3>
-                    <p>No active wallet for <strong><?php echo esc_html( $network ); ?></strong>. Generate one to enable server-side signing.</p>
+                    <h3>Create Wallet (<?php echo esc_html( $weldpress_network ); ?>)</h3>
+                    <p>No active wallet for <strong><?php echo esc_html( $weldpress_network ); ?></strong>. Generate one to enable server-side signing.</p>
                     <form method="post">
                         <?php wp_nonce_field( 'weldpress_generate_wallet' ); ?>
                         <input type="hidden" name="weldpress_wallet_action" value="generate">
                         <table class="wfwp-details-table">
                             <tr>
                                 <th><label for="wallet_name">Wallet Name</label></th>
-                                <td><input type="text" name="wallet_name" id="wallet_name" value="Weld for WP Wallet" class="regular-text"></td>
+                                <td><input type="text" name="wallet_name" id="wallet_name" value="Weld Cardano Wallet" class="regular-text"></td>
                             </tr>
                         </table>
                         <?php submit_button( 'Generate Wallet', 'primary', 'submit', true ); ?>
@@ -242,31 +242,31 @@ if ( $notice ) {
             <?php endif; ?>
 
             <?php // ── Archived Wallets ── ?>
-            <?php if ( ! empty( $archived_wallets ) ) : ?>
+            <?php if ( ! empty( $weldpress_archived_wallets ) ) : ?>
                 <div class="wfwp-archived-card">
                     <h3 class="wfwp-archived-toggle" id="wfwp-archived-toggle">
-                        Archived Wallets (<?php echo count( $archived_wallets ); ?>)
+                        Archived Wallets (<?php echo count( $weldpress_archived_wallets ); ?>)
                         <span class="dashicons dashicons-arrow-down-alt2"></span>
                     </h3>
                     <div id="wfwp-archived-list" class="wfwp-slide">
                         <div class="wfwp-archived-grid">
-                            <?php foreach ( $archived_wallets as $aw ) : ?>
+                            <?php foreach ( $weldpress_archived_wallets as $weldpress_aw ) : ?>
                                 <div class="wfwp-archived-item">
                                     <div class="wfwp-archived-info">
                                         <strong>
-                                            <?php echo esc_html( $aw['wallet_name'] ); ?>
-                                            <span class="wfwp-network-badge wfwp-<?php echo esc_attr( $aw['network'] ); ?>" style="font-size:10px;padding:1px 6px;">
-                                                <?php echo esc_html( $aw['network'] ); ?>
+                                            <?php echo esc_html( $weldpress_aw['wallet_name'] ); ?>
+                                            <span class="wfwp-network-badge wfwp-<?php echo esc_attr( $weldpress_aw['network'] ); ?>" style="font-size:10px;padding:1px 6px;">
+                                                <?php echo esc_html( $weldpress_aw['network'] ); ?>
                                             </span>
                                         </strong>
                                         <br>
-                                        <code><?php echo esc_html( substr( $aw['payment_address'], 0, 24 ) . '...' . substr( $aw['payment_address'], -8 ) ); ?></code>
+                                        <code><?php echo esc_html( substr( $weldpress_aw['payment_address'], 0, 24 ) . '...' . substr( $weldpress_aw['payment_address'], -8 ) ); ?></code>
                                         <br>
-                                        <small>Archived: <?php echo esc_html( $aw['archived_at'] ); ?></small>
+                                        <small>Archived: <?php echo esc_html( $weldpress_aw['archived_at'] ); ?></small>
                                     </div>
                                     <div class="wfwp-archived-actions">
-                                        <button type="button" class="button button-small wfwp-unarchive" data-id="<?php echo esc_attr( $aw['id'] ); ?>">Restore</button>
-                                        <a href="#" class="wfwp-delete-archived wfwp-delete-link" data-id="<?php echo esc_attr( $aw['id'] ); ?>" data-name="<?php echo esc_attr( $aw['wallet_name'] ); ?>">Delete</a>
+                                        <button type="button" class="button button-small wfwp-unarchive" data-id="<?php echo esc_attr( $weldpress_aw['id'] ); ?>">Restore</button>
+                                        <a href="#" class="wfwp-delete-archived wfwp-delete-link" data-id="<?php echo esc_attr( $weldpress_aw['id'] ); ?>" data-name="<?php echo esc_attr( $weldpress_aw['wallet_name'] ); ?>">Delete</a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -291,9 +291,9 @@ if ( $notice ) {
 
             <!-- ── Overview ── -->
 
-            <h2>What is Weld for WP?</h2>
+            <h2>What is Weld Cardano?</h2>
 
-            <p>Weld for WP is a WordPress plugin that connects your site to the <strong>Cardano blockchain</strong>. It lets visitors connect their Cardano wallets (like Eternl, Lace, or Nami) directly in the browser, and it lets you &mdash; the site admin &mdash; manage a server-side wallet for automated transactions. Everything runs through WordPress: shortcodes for the frontend, a REST API for developers, and an admin dashboard for wallet management.</p>
+            <p>Weld Cardano is a WordPress plugin that connects your site to the <strong>Cardano blockchain</strong>. It lets visitors connect their Cardano wallets (like Eternl, Lace, or Nami) directly in the browser, and it lets you &mdash; the site admin &mdash; manage a server-side wallet for automated transactions. Everything runs through WordPress: shortcodes for the frontend, a REST API for developers, and an admin dashboard for wallet management.</p>
 
             <p>There is no React, no Next.js, no WebAssembly, and no Node.js runtime required. The entire frontend is a <strong>6 KB</strong> vanilla JavaScript bundle. The server-side transaction signer is <strong>18 KB of pure PHP</strong>. That&rsquo;s it.</p>
 
@@ -540,12 +540,12 @@ function disburse_rewards() {
     if ( is_wp_error( $build ) ) return;
 
     <span class="wfwp-code-comment">// Sign with PHP-Cardano (pure PHP, no WASM, no CLI)</span>
-    require_once WELDPRESS_DIR . 'includes/cardano/Ed25519Compat.php';
-    require_once WELDPRESS_DIR . 'includes/cardano/Ed25519Pure.php';
-    require_once WELDPRESS_DIR . 'includes/cardano/CardanoTransactionSignerPHP.php';
-    Ed25519Compat::init();
+    require_once WELDPRESS_DIR . 'includes/cardano/WeldPress_Ed25519Compat.php';
+    require_once WELDPRESS_DIR . 'includes/cardano/WeldPress_Ed25519Pure.php';
+    require_once WELDPRESS_DIR . 'includes/cardano/WeldPress_CardanoTransactionSignerPHP.php';
+    WeldPress_Ed25519Compat::init();
 
-    $signed = CardanoTransactionSignerPHP::signTransaction(
+    $signed = WeldPress_CardanoTransactionSignerPHP::signTransaction(
         $build['complete'], $skey
     );
     if ( ! $signed['success'] ) return;
@@ -630,7 +630,7 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
             </ul>
 
             <p class="wfwp-docs-footer">
-                <strong>Weld for WP</strong> v<?php echo esc_html( WELDPRESS_VERSION ); ?> &mdash; GPLv2 or later &mdash;
+                <strong>Weld Cardano</strong> v<?php echo esc_html( WELDPRESS_VERSION ); ?> &mdash; GPLv2 or later &mdash;
                 <a href="https://github.com/invalidcredentials/weld-for-wp" target="_blank" rel="noopener">GitHub</a>
             </p>
 
@@ -639,12 +639,12 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
     <?php else : /* settings tab */ ?>
 
         <?php
-        $network   = $settings->get_network();
-        $custodial = $settings->is_custodial_enabled();
-        $key_preprod_set     = ! empty( get_option( 'weldpress_anvil_key_preprod', '' ) );
-        $key_mainnet_set     = ! empty( get_option( 'weldpress_anvil_key_mainnet', '' ) );
-        $bf_key_preprod_set  = ! empty( get_option( 'weldpress_blockfrost_key_preprod', '' ) );
-        $bf_key_mainnet_set  = ! empty( get_option( 'weldpress_blockfrost_key_mainnet', '' ) );
+        $weldpress_network   = $settings->get_network();
+        $weldpress_custodial = $settings->is_custodial_enabled();
+        $weldpress_key_preprod_set     = ! empty( get_option( 'weldpress_anvil_key_preprod', '' ) );
+        $weldpress_key_mainnet_set     = ! empty( get_option( 'weldpress_anvil_key_mainnet', '' ) );
+        $weldpress_bf_key_preprod_set  = ! empty( get_option( 'weldpress_blockfrost_key_preprod', '' ) );
+        $weldpress_bf_key_mainnet_set  = ! empty( get_option( 'weldpress_blockfrost_key_mainnet', '' ) );
         ?>
         <form method="post" action="">
             <?php wp_nonce_field( 'weldpress_save_settings' ); ?>
@@ -656,8 +656,8 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
                     <th scope="row"><label for="weldpress_network">Active Network</label></th>
                     <td>
                         <select name="weldpress_network" id="weldpress_network">
-                            <option value="preprod" <?php selected( $network, 'preprod' ); ?>>Preprod (Testnet)</option>
-                            <option value="mainnet" <?php selected( $network, 'mainnet' ); ?>>Mainnet</option>
+                            <option value="preprod" <?php selected( $weldpress_network, 'preprod' ); ?>>Preprod (Testnet)</option>
+                            <option value="mainnet" <?php selected( $weldpress_network, 'mainnet' ); ?>>Mainnet</option>
                         </select>
                         <p class="description">Select the Cardano network. Use Preprod for testing.</p>
                     </td>
@@ -671,9 +671,9 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
                     <th scope="row"><label for="weldpress_anvil_key_preprod">Preprod Key</label></th>
                     <td>
                         <input type="password" name="weldpress_anvil_key_preprod" id="weldpress_anvil_key_preprod"
-                               class="regular-text" placeholder="<?php echo $key_preprod_set ? '••••••••' : 'Enter API key'; ?>"
+                               class="regular-text" placeholder="<?php echo $weldpress_key_preprod_set ? '••••••••' : 'Enter API key'; ?>"
                                autocomplete="off">
-                        <?php if ( $key_preprod_set ) : ?>
+                        <?php if ( $weldpress_key_preprod_set ) : ?>
                             <span class="dashicons dashicons-yes-alt" style="color: #00a32a; vertical-align: middle;"></span>
                         <?php endif; ?>
                     </td>
@@ -682,9 +682,9 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
                     <th scope="row"><label for="weldpress_anvil_key_mainnet">Mainnet Key</label></th>
                     <td>
                         <input type="password" name="weldpress_anvil_key_mainnet" id="weldpress_anvil_key_mainnet"
-                               class="regular-text" placeholder="<?php echo $key_mainnet_set ? '••••••••' : 'Enter API key'; ?>"
+                               class="regular-text" placeholder="<?php echo $weldpress_key_mainnet_set ? '••••••••' : 'Enter API key'; ?>"
                                autocomplete="off">
-                        <?php if ( $key_mainnet_set ) : ?>
+                        <?php if ( $weldpress_key_mainnet_set ) : ?>
                             <span class="dashicons dashicons-yes-alt" style="color: #00a32a; vertical-align: middle;"></span>
                         <?php endif; ?>
                     </td>
@@ -698,9 +698,9 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
                     <th scope="row"><label for="weldpress_blockfrost_key_preprod">Preprod Key</label></th>
                     <td>
                         <input type="password" name="weldpress_blockfrost_key_preprod" id="weldpress_blockfrost_key_preprod"
-                               class="regular-text" placeholder="<?php echo $bf_key_preprod_set ? '••••••••' : 'preprodXXXXXXXXXXXX'; ?>"
+                               class="regular-text" placeholder="<?php echo $weldpress_bf_key_preprod_set ? '••••••••' : 'preprodXXXXXXXXXXXX'; ?>"
                                autocomplete="off">
-                        <?php if ( $bf_key_preprod_set ) : ?>
+                        <?php if ( $weldpress_bf_key_preprod_set ) : ?>
                             <span class="dashicons dashicons-yes-alt" style="color: #00a32a; vertical-align: middle;"></span>
                         <?php endif; ?>
                     </td>
@@ -709,9 +709,9 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
                     <th scope="row"><label for="weldpress_blockfrost_key_mainnet">Mainnet Key</label></th>
                     <td>
                         <input type="password" name="weldpress_blockfrost_key_mainnet" id="weldpress_blockfrost_key_mainnet"
-                               class="regular-text" placeholder="<?php echo $bf_key_mainnet_set ? '••••••••' : 'mainnetXXXXXXXXXXXX'; ?>"
+                               class="regular-text" placeholder="<?php echo $weldpress_bf_key_mainnet_set ? '••••••••' : 'mainnetXXXXXXXXXXXX'; ?>"
                                autocomplete="off">
-                        <?php if ( $bf_key_mainnet_set ) : ?>
+                        <?php if ( $weldpress_bf_key_mainnet_set ) : ?>
                             <span class="dashicons dashicons-yes-alt" style="color: #00a32a; vertical-align: middle;"></span>
                         <?php endif; ?>
                     </td>
@@ -724,7 +724,7 @@ add_shortcode( 'cardano_gated', 'gated_shortcode' );
                     <th scope="row">Custodial Wallets</th>
                     <td>
                         <label>
-                            <input type="checkbox" name="weldpress_custodial_enabled" value="1" <?php checked( $custodial ); ?>>
+                            <input type="checkbox" name="weldpress_custodial_enabled" value="1" <?php checked( $weldpress_custodial ); ?>>
                             Enable server-side custodial wallet support
                         </label>
                         <p class="description"><strong>Advanced.</strong> Allows the server to generate and sign with custodial keys.</p>

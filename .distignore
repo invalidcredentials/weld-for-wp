@@ -1,0 +1,19 @@
+# Files to exclude from plugin distribution zip.
+.distignore
+.gitignore
+.git
+.github
+.vscode
+.idea
+.env
+.env.*
+.cache
+node_modules
+frontend
+package.json
+package-lock.json
+vite.config.js
+README.md
+*.log
+*.swp
+*.swo

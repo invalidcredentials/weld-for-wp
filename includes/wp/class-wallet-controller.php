@@ -48,18 +48,18 @@ class WeldPress_Wallet_Controller {
      * Generate a new custodial wallet using PHP-Cardano.
      */
     private static function generate_wallet() {
-        $wallet_name = sanitize_text_field( wp_unslash( $_POST['wallet_name'] ?? 'Default Wallet' ) );
+        $wallet_name = sanitize_text_field( wp_unslash( $_POST['wallet_name'] ?? 'Default Wallet' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in handle_form_submissions().
         $settings    = new WeldPress_Settings();
         $network     = $settings->get_network();
 
         // Load PHP-Cardano.
-        require_once WELDPRESS_DIR . 'includes/cardano/Ed25519Compat.php';
+        require_once WELDPRESS_DIR . 'includes/cardano/WeldPress_Ed25519Compat.php';
         require_once WELDPRESS_DIR . 'includes/cardano/Ed25519Pure.php';
-        require_once WELDPRESS_DIR . 'includes/cardano/CardanoWalletPHP.php';
+        require_once WELDPRESS_DIR . 'includes/cardano/WeldPress_CardanoWalletPHP.php';
 
         try {
-            Ed25519Compat::init();
-            $result = CardanoWalletPHP::generateWallet( $network );
+            WeldPress_Ed25519Compat::init();
+            $result = WeldPress_CardanoWalletPHP::generateWallet( $network );
         } catch ( Throwable $e ) {
             set_transient( 'weldpress_admin_notice', 'Wallet generation failed: ' . $e->getMessage(), 30 );
             set_transient( 'weldpress_admin_notice_type', 'error', 30 );
@@ -117,7 +117,7 @@ class WeldPress_Wallet_Controller {
      * Delete wallet (form POST).
      */
     private static function delete_wallet() {
-        $wallet_id = absint( $_POST['wallet_id'] ?? 0 );
+        $wallet_id = absint( $_POST['wallet_id'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in handle_form_submissions().
         if ( $wallet_id > 0 ) {
             WeldPress_Wallet_Model::delete( $wallet_id );
             set_transient( 'weldpress_admin_notice', 'Wallet deleted.', 30 );
@@ -237,11 +237,11 @@ class WeldPress_Wallet_Controller {
         }
 
         // Sign with PHP-Cardano.
-        require_once WELDPRESS_DIR . 'includes/cardano/Ed25519Compat.php';
+        require_once WELDPRESS_DIR . 'includes/cardano/WeldPress_Ed25519Compat.php';
         require_once WELDPRESS_DIR . 'includes/cardano/Ed25519Pure.php';
-        require_once WELDPRESS_DIR . 'includes/cardano/CardanoTransactionSignerPHP.php';
+        require_once WELDPRESS_DIR . 'includes/cardano/WeldPress_CardanoTransactionSignerPHP.php';
 
-        $sign_result = CardanoTransactionSignerPHP::signTransaction( $unsigned_tx, $skey_hex );
+        $sign_result = WeldPress_CardanoTransactionSignerPHP::signTransaction( $unsigned_tx, $skey_hex );
 
         if ( ! $sign_result || ! $sign_result['success'] ) {
             wp_send_json_error( array( 'message' => 'Signing failed: ' . ( $sign_result['error'] ?? 'Unknown' ) ) );

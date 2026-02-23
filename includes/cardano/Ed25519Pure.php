@@ -1,6 +1,6 @@
 <?php
 /**
- * Ed25519Pure.php
+ * WeldPress_Ed25519Pure.php
  *
  * Minimal, pure-PHP (BCMath) implementation of Ed25519 basepoint multiplication
  * for environments where ext/sodium doesn't expose ed25519 core functions and FFI is blocked.
@@ -9,8 +9,8 @@
  * ✅ Compatibility: produces the same compressed public key as libsodium for clamped scalars.
  *
  * API:
- *   - Ed25519Pure::ge_scalarmult_base_noclamp(string $k_le): string  // 32-byte compressed A = [k]B
- *   - Ed25519Pure::A_from_kL(string $kL): string                      // alias; $kL must be clamped 32 bytes
+ *   - WeldPress_Ed25519Pure::ge_scalarmult_base_noclamp(string $k_le): string  // 32-byte compressed A = [k]B
+ *   - WeldPress_Ed25519Pure::A_from_kL(string $kL): string                      // alias; $kL must be clamped 32 bytes
  *
  * Implementation notes:
  *   - Field arithmetic is done in decimal strings via BCMath modulo p = 2^255 - 19.
@@ -23,7 +23,7 @@
  *   - Ed25519 parameters (p, d, basepoint)
  */
 
-final class Ed25519Pure
+final class WeldPress_Ed25519Pure
 {
     // Prime modulus p = 2^255 - 19
     private const P_DEC = '57896044618658097711785492504343953926634992332820282019728792003956564819949';

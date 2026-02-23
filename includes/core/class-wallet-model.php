@@ -50,9 +50,11 @@ class WeldPress_Wallet_Model {
         global $wpdb;
         $table = self::table_name();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table, not cacheable.
         return $wpdb->get_row(
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is from table_name(), not user input.
             $wpdb->prepare(
-                "SELECT * FROM $table WHERE network = %s AND archived = 0 ORDER BY id DESC LIMIT 1",
+                "SELECT * FROM {$table} WHERE network = %s AND archived = 0 ORDER BY id DESC LIMIT 1",
                 $network
             ),
             ARRAY_A
@@ -66,8 +68,10 @@ class WeldPress_Wallet_Model {
         global $wpdb;
         $table = self::table_name();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table, not cacheable.
         return $wpdb->get_row(
-            $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", absint( $id ) ),
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is from table_name(), not user input.
+            $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", absint( $id ) ),
             ARRAY_A
         );
     }
@@ -79,6 +83,7 @@ class WeldPress_Wallet_Model {
         global $wpdb;
         $table = self::table_name();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom table insert.
         $wpdb->insert( $table, array(
             'wallet_name'        => $data['wallet_name'] ?? 'Default Wallet',
             'mnemonic_encrypted' => $data['mnemonic_encrypted'],
@@ -99,6 +104,7 @@ class WeldPress_Wallet_Model {
     public static function delete( $id ) {
         global $wpdb;
         $table = self::table_name();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table delete.
         return $wpdb->delete( $table, array( 'id' => absint( $id ) ) );
     }
 
@@ -109,6 +115,7 @@ class WeldPress_Wallet_Model {
         global $wpdb;
         $table = self::table_name();
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table update.
         return $wpdb->update(
             $table,
             array( 'archived' => 1, 'archived_at' => current_time( 'mysql' ) ),
@@ -135,6 +142,7 @@ class WeldPress_Wallet_Model {
             return new WP_Error( 'active_wallet_exists', 'Another wallet is already active for ' . $wallet['network'] . '. Archive it first.' );
         }
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table update.
         return $wpdb->update(
             $table,
             array( 'archived' => 0, 'archived_at' => null ),
@@ -152,12 +160,16 @@ class WeldPress_Wallet_Model {
         $table = self::table_name();
 
         if ( $network ) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table query.
             return $wpdb->get_results(
-                $wpdb->prepare( "SELECT * FROM $table WHERE archived = 1 AND network = %s ORDER BY archived_at DESC", $network ),
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is from table_name(), not user input.
+                $wpdb->prepare( "SELECT * FROM {$table} WHERE archived = 1 AND network = %s ORDER BY archived_at DESC", $network ),
                 ARRAY_A
             );
         }
 
-        return $wpdb->get_results( "SELECT * FROM $table WHERE archived = 1 ORDER BY archived_at DESC", ARRAY_A );
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table query.
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is from table_name(), not user input.
+        return $wpdb->get_results( "SELECT * FROM {$table} WHERE archived = 1 ORDER BY archived_at DESC", ARRAY_A );
     }
 }
