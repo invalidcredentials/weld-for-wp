@@ -3,7 +3,7 @@ Contributors: invalidcredentials
 Tags: cardano, blockchain, wallet, web3, cryptocurrency
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,6 +163,10 @@ Yes. The JavaScript API (`window.WeldPress`) allows you to build custom payment 
 5. Send ADA form — server-side build, sign, and submit
 
 == Changelog ==
+
+= 0.3.3 =
+* Fixed broken Terms/Privacy URLs (now points to cardanowordpressplugins.com)
+* Added Source Code section with GitHub repository links and build instructions
 
 = 0.3.1 =
 * Renamed plugin from "Weld for WP" to "Weld Cardano" (WordPress trademark compliance)
