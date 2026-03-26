@@ -52,9 +52,8 @@ class WeldPress_Wallet_Model {
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table, not cacheable.
         return $wpdb->get_row(
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is from table_name(), not user input.
             $wpdb->prepare(
-                "SELECT * FROM {$table} WHERE network = %s AND archived = 0 ORDER BY id DESC LIMIT 1",
+                "SELECT * FROM {$table} WHERE network = %s AND archived = 0 ORDER BY id DESC LIMIT 1", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is from table_name(), not user input.
                 $network
             ),
             ARRAY_A
@@ -168,8 +167,7 @@ class WeldPress_Wallet_Model {
             );
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table query.
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is from table_name(), not user input.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Custom table, $table from table_name().
         return $wpdb->get_results( "SELECT * FROM {$table} WHERE archived = 1 ORDER BY archived_at DESC", ARRAY_A );
     }
 }

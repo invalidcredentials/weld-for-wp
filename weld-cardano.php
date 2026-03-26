@@ -3,7 +3,7 @@
  * Plugin Name: Weld Cardano
  * Plugin URI:  https://github.com/invalidcredentials/weld-for-wp
  * Description: Cardano wallet connectivity and transaction signing for WordPress. Inspired by Weld by Anvil, powered by PHP-Cardano. A pb project.
- * Version:     0.3.1
+ * Version:     0.3.2
  * Author:      pb
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WELDPRESS_VERSION', '0.3.1' );
+define( 'WELDPRESS_VERSION', '0.3.2' );
 define( 'WELDPRESS_FILE', __FILE__ );
 define( 'WELDPRESS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WELDPRESS_URL', plugin_dir_url( __FILE__ ) );

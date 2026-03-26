@@ -3,7 +3,7 @@ Contributors: invalidcredentials
 Tags: cardano, blockchain, wallet, web3, cryptocurrency
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -62,8 +62,8 @@ This plugin connects to the following third-party services when configured by th
 * **Used for:** Building and submitting Cardano transactions
 * **Data sent:** Wallet addresses, transaction outputs, signed transaction data
 * **When:** Only when a user or admin initiates a transaction (send ADA, build TX)
-* **Terms of Service:** [https://ada-anvil.io/terms](https://ada-anvil.io/terms)
-* **Privacy Policy:** [https://ada-anvil.io/privacy](https://ada-anvil.io/privacy)
+* **Terms of Service:** [https://cardanowordpressplugins.com/terms/](https://cardanowordpressplugins.com/terms/)
+* **Privacy Policy:** [https://cardanowordpressplugins.com/privacy/](https://cardanowordpressplugins.com/privacy/)
 
 = Blockfrost API =
 
@@ -80,6 +80,23 @@ This plugin connects to the following third-party services when configured by th
 * **Used for:** Loading NFT images referenced in CIP-25 on-chain metadata
 * **Data sent:** None (images are fetched by the browser, not the server)
 * **When:** Only when viewing native tokens with image metadata
+
+== Source Code ==
+
+The compiled JavaScript and CSS files in the `assets/` directory are built from source using [Vite](https://vitejs.dev/).
+
+= Source repositories =
+
+* **Plugin source:** [https://github.com/invalidcredentials/weld-for-wp](https://github.com/invalidcredentials/weld-for-wp)
+* **Original Weld library:** [https://github.com/Cardano-Forge/weld](https://github.com/Cardano-Forge/weld)
+
+= Build instructions =
+
+1. Clone the repository: `git clone https://github.com/invalidcredentials/weld-for-wp.git`
+2. Install dependencies: `npm install`
+3. Build for production: `npm run build`
+
+This generates `assets/js/weldpress.js` and `assets/css/weldpress.css` from the source files in the `frontend/` directory.
 
 == Installation ==
 

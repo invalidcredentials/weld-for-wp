@@ -23,6 +23,8 @@
  *   - Ed25519 parameters (p, d, basepoint)
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 final class WeldPress_Ed25519Pure
 {
     // Prime modulus p = 2^255 - 19

@@ -6,6 +6,8 @@
  * Adds support for signing with extended keys (kL||kR) using WeldPress_Ed25519Compat::sign_extended.
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 require_once __DIR__ . '/WeldPress_Ed25519Compat.php';
 
 class WeldPress_CardanoTransactionSignerPHP

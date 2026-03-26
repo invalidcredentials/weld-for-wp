@@ -2,6 +2,8 @@
 // Official BIP39 English wordlist (2048 words)
 // Source: https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 return [
     'abandon', 'ability', 'able', 'about', 'above', 'absent', 'absorb', 'abstract', 'absurd', 'abuse',
     'access', 'accident', 'account', 'accuse', 'achieve', 'acid', 'acoustic', 'acquire', 'across', 'act',

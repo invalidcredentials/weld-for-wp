@@ -13,6 +13,8 @@
  *  - sign_extended($msg, $kL, $kR)  -> 64-byte signature (R||S)
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 final class WeldPress_Ed25519Compat
 {
     private static $ready = false;

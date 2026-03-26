@@ -18,6 +18,8 @@
  *   - WeldPress_Ed25519Compat.php (native->FFI->pure fallback) for scalarmult and extended signing
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 require_once __DIR__ . '/WeldPress_Ed25519Compat.php';
 
 class WeldPress_CardanoWalletPHP
